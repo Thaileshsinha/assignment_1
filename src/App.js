@@ -27,7 +27,6 @@ export default function App() {
     const resp = await axios.get(
       "https://8fd85044d6f4480a8a44b0838cc19de9.api.mockbin.io"
     );
-    const skip = (page - 1).limit;
     setVal(resp.data);
     setOtherVal(resp.data.slice(0, 10));
   };
@@ -39,16 +38,21 @@ export default function App() {
   };
 
   return (
-    <main>
+    <main className="container">
       <button onClick={changeLimit}>change limit</button>
-      {otherVal?.map((e, index) => (
-        <p
-          key={index}
-          style={{ color: colorDetails[Math.floor((index + page) / 7)] }}
-        >
-          {e.name}
-        </p>
-      ))}
+      <div className="list">
+        {otherVal?.map((e, index) => (
+          <p
+            key={index}
+            style={{
+              background: colorDetails[Math.floor((index + page) / 7)],
+              color: "white",
+            }}
+          >
+            {e.name}
+          </p>
+        ))}
+      </div>
     </main>
   );
 }
